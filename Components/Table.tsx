@@ -148,7 +148,6 @@ export const Table: React.FC<ITable> = ({
 
       // Divide remaining space fairly
       remainingCols.forEach(col => {
-        console.log('starting column ' + col);
         const max = getDesiredMax(col);
         const fairShare = remainingWidth / remainingCols.length;
         let width = 0;
@@ -202,24 +201,14 @@ export const Table: React.FC<ITable> = ({
       setIsMeasuring(false);
     }
     return (
-      <View>
-        <Text>{desiredWidthContainsUndefined().toString()}</Text>
-        <Text>__Desired Width__</Text>
-        {desiredWidth.map(row => (
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            {row.map(cell => (
-              <Text style={{padding: 10}}>{Math.floor(cell * 10) / 10}</Text>
-            ))}
-          </View>
-        ))}
-        <ScrollView
-          contentContainerStyle={{
-            width: scrollViewWidth,
-            alignItems: 'flex-start',
-          }}>
-          <View onLayout={onLayoutChange}>{children}</View>
-        </ScrollView>
-      </View>
+      <ScrollView
+        contentContainerStyle={{
+          width: scrollViewWidth,
+          alignItems: 'flex-start',
+        }}
+        style={{width: 0, height: 0}}>
+        <View onLayout={onLayoutChange}>{children}</View>
+      </ScrollView>
     );
   }
   return (
