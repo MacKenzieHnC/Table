@@ -74,10 +74,7 @@ export const Table: React.FC<ITable> = ({
    */
   const onLayoutChange = (event: LayoutChangeEvent) => {
     // Make ScrollView as big as it needs to be
-    if (
-      isMeasuring &&
-      scrollViewWidth - event.nativeEvent.layout.width <= 1000
-    ) {
+    if (isMeasuring && scrollViewWidth - event.nativeEvent.layout.width <= 10) {
       setScrollViewWidth(scrollViewWidth * 2);
     }
     // Calculate column sizes
