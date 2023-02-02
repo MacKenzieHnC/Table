@@ -1,54 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {cloneElement, useState} from 'react';
 import {LayoutChangeEvent, ScrollView, View, ViewStyle} from 'react-native';
-
-/**
- * A single cell
- */
-interface ITD {
-  children?: any;
-  requestWidth?: Function;
-  desiredWidthIsDefined?: Function;
-  getWidth?: Function;
-}
-export const TD: React.FC<ITD> = ({
-  children,
-  requestWidth,
-  desiredWidthIsDefined,
-  getWidth,
-}: ITD) => {
-  const onLayout = (event: LayoutChangeEvent) => {
-    if (requestWidth && desiredWidthIsDefined && !desiredWidthIsDefined()) {
-      requestWidth(Math.ceil(event.nativeEvent.layout.width));
-    }
-  };
-  if (!getWidth) {
-    return <View />;
-  }
-  return (
-    <View onLayout={onLayout} style={{width: getWidth()}}>
-      {children}
-    </View>
-  );
-};
-
-/**
- * Row
- */
-interface ITR {
-  children: React.ReactElement<ITD>[] | React.ReactElement<ITD>;
-}
-export const TR: React.FC<ITR> = ({children}: ITR) => {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        flexWrap: 'nowrap',
-      }}>
-      {children}
-    </View>
-  );
-};
+import {ITR} from './TR';
 
 /**
  * Table
