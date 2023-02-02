@@ -27,10 +27,10 @@ const App = () => {
         {data.map((item, index) => (
           <TR key={index}>
             <TD key={'name'}>
-              <Text>{item.name}</Text>
+              <Text style={{padding: 5}}>{item.name}</Text>
             </TD>
             <TD key={'value'}>
-              <Text>{item.value}</Text>
+              <Text style={{padding: 10}}>{item.value}</Text>
             </TD>
           </TR>
         ))}

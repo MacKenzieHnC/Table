@@ -1,12 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {cloneElement, useState} from 'react';
-import {
-  LayoutChangeEvent,
-  ScrollView,
-  Text,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {LayoutChangeEvent, ScrollView, View, ViewStyle} from 'react-native';
 
 /**
  * A single cell
@@ -29,7 +23,7 @@ export const TD: React.FC<ITD> = ({
     }
   };
   if (!getWidth) {
-    return <Text>Uh-oh!</Text>;
+    return <View />;
   }
   return (
     <View onLayout={onLayout} style={{width: getWidth()}}>
@@ -91,6 +85,7 @@ export const Table: React.FC<ITable> = ({
     });
   }
 
+  // State
   const [scrollViewWidth, setScrollViewWidth] = useState(1000);
   const [isMeasuring, setIsMeasuring] = useState(true);
   const [desiredWidth, setDesiredWidth] = useState(
@@ -98,14 +93,16 @@ export const Table: React.FC<ITable> = ({
   );
   const [colWidth, setColWidth] = useState(Array(size[1]));
   if (!desiredWidth || !colWidth) {
-    return <Text>Loading</Text>;
+    return <View />;
   }
 
+  /*
+   * Utility functions
+   */
   const getDesiredMax = (colIndex: number) => {
-    const max = Math.max(
+    return Math.max(
       ...desiredWidth.map(desiredWidthRow => desiredWidthRow[colIndex]),
     );
-    return max;
   };
 
   const desiredWidthContainsUndefined = () => {
@@ -119,6 +116,9 @@ export const Table: React.FC<ITable> = ({
     return false;
   };
 
+  /*
+   * This is where the magic happens
+   */
   const onLayoutChange = (event: LayoutChangeEvent) => {
     // Make ScrollView as big as it needs to be
     if (
@@ -129,8 +129,8 @@ export const Table: React.FC<ITable> = ({
     }
     // Calculate column sizes
     else {
+      let updatedColWidth = [...colWidth]; // This will store our calculations, so we don't get race conditions
       let remainingWidth = event.nativeEvent.layout.width;
-      let updatedColWidth = [...colWidth];
       let remainingCols = Array.from(
         Array<number[]>(size[1]),
         (cell, index) => {
@@ -161,7 +161,7 @@ export const Table: React.FC<ITable> = ({
         remainingCols = remainingCols.filter(x => x !== col);
       });
 
-      setColWidth(updatedColWidth);
+      setColWidth(updatedColWidth); // Okay, NOW we can update
     }
   };
 
@@ -196,6 +196,7 @@ export const Table: React.FC<ITable> = ({
     });
   }
 
+  // While calculating measurements
   if (isMeasuring) {
     if (!desiredWidthContainsUndefined()) {
       setIsMeasuring(false);
@@ -211,6 +212,8 @@ export const Table: React.FC<ITable> = ({
       </ScrollView>
     );
   }
+
+  // Okay, now we can actually display it
   return (
     <View style={style}>
       <View onLayout={onLayoutChange}>{children}</View>
