@@ -29,7 +29,20 @@ Example where the first and third columns no-wrap:
 ## Style
 `Table` accepts all [`ViewStyle` props](https://reactnative.dev/docs/view-style-props). `TR` and `TD` accept no props. But you are free to style the inner components of `TD` however you like.
 
+Example:
+```js
+<Table
+        priviledgedColumns={[0]}
+        style={{
+          alignContent: 'center',
+          padding: 30,
+          backgroundColor: 'purple',
+          borderWidth: 5,
+        }}>
+...
+```
+
 ## Limitations
-All tables must contain at least 1 row.
-All rows must contain at least 1 column.
-All rows must contain the same number of columns.
+- All tables must contain at least 1 row.
+- All rows must contain at least 1 column.
+- All rows must contain the same number of columns.
