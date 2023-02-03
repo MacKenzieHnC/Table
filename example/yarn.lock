@@ -1350,6 +1350,11 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@mackenziehnc/table@file:../mackenziehnc-table-0.0.1.tgz":
+  version "0.0.1"
+  resolved "file:../mackenziehnc-table-0.0.1.tgz"
+  integrity sha512-ApVDoRkPkDG/4HXkYBaH/sqqsCs1Ihyzi3SkmbUilclOOgfLnEA9ak6TmdlHOz7csEaJqKQzpFWwy9rJ2fEJHg==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"

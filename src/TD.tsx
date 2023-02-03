@@ -1,5 +1,5 @@
-import React from 'react';
-import {LayoutChangeEvent, View} from 'react-native';
+import React from "react";
+import { LayoutChangeEvent, View } from "react-native";
 
 // Props
 export interface ITD {
@@ -10,12 +10,12 @@ export interface ITD {
 }
 
 // Component
-export const TD: React.FC<ITD> = ({
+export function TD({
   children,
   requestWidth,
   desiredWidthIsDefined,
   getWidth,
-}: ITD) => {
+}: ITD) {
   const onLayout = (event: LayoutChangeEvent) => {
     if (requestWidth && desiredWidthIsDefined && !desiredWidthIsDefined()) {
       requestWidth(Math.ceil(event.nativeEvent.layout.width));
@@ -25,8 +25,8 @@ export const TD: React.FC<ITD> = ({
     return <View />;
   }
   return (
-    <View onLayout={onLayout} style={{width: getWidth()}}>
+    <View onLayout={onLayout} style={{ width: getWidth() }}>
       {children}
     </View>
   );
-};
+}

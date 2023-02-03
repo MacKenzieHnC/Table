@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@mackenziehnc/table": "file:../mackenziehnc-table-0.0.1.tgz",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-flex-grid": "^0.13.2"

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {cloneElement, useState} from 'react';
-import {LayoutChangeEvent, ScrollView, View, ViewStyle} from 'react-native';
-import {ITR} from './TR';
+import React, { cloneElement, useState } from "react";
+import { LayoutChangeEvent, ScrollView, View, ViewStyle } from "react-native";
+import { ITR } from "./TR";
 
 /**
  * Table
@@ -11,11 +11,7 @@ interface ITable {
   style?: ViewStyle;
   priviledgedColumns?: number[];
 }
-export const Table: React.FC<ITable> = ({
-  children,
-  style,
-  priviledgedColumns = [],
-}: ITable) => {
+export function Table({ children, style, priviledgedColumns = [] }: ITable) {
   let size = [1, 1];
 
   // Check all rows have the same number of columns
@@ -27,12 +23,12 @@ export const Table: React.FC<ITable> = ({
           size[1] = row.props.children.length;
         } else if (row.props.children.length !== size[1]) {
           throw Error(
-            'All rows in Table need to have the same number of columns!',
+            "All rows in Table need to have the same number of columns!"
           );
         }
       } else if (rowIndex !== 0 && size[1] !== 1) {
         throw Error(
-          'All rows in Table need to have the same number of columns!',
+          "All rows in Table need to have the same number of columns!"
         );
       }
     });
@@ -42,7 +38,7 @@ export const Table: React.FC<ITable> = ({
   const [scrollViewWidth, setScrollViewWidth] = useState(1000);
   const [isMeasuring, setIsMeasuring] = useState(true);
   const [desiredWidth, setDesiredWidth] = useState(
-    Array.from(Array(size[0]), () => new Array(size[1])),
+    Array.from(Array(size[0]), () => new Array(size[1]))
   );
   const [colWidth, setColWidth] = useState(Array(size[1]));
   if (!desiredWidth || !colWidth) {
@@ -54,7 +50,7 @@ export const Table: React.FC<ITable> = ({
    */
   const getDesiredMax = (colIndex: number) => {
     return Math.max(
-      ...desiredWidth.map(desiredWidthRow => desiredWidthRow[colIndex]),
+      ...desiredWidth.map((desiredWidthRow) => desiredWidthRow[colIndex])
     );
   };
 
@@ -85,19 +81,19 @@ export const Table: React.FC<ITable> = ({
         Array<number[]>(size[1]),
         (cell, index) => {
           return index;
-        },
+        }
       );
 
       // Ignore priviledge columns
-      priviledgedColumns.forEach(col => {
+      priviledgedColumns.forEach((col) => {
         const width = getDesiredMax(col);
         updatedColWidth[col] = width;
         remainingWidth -= width;
-        remainingCols = remainingCols.filter(x => x !== col);
+        remainingCols = remainingCols.filter((x) => x !== col);
       });
 
       // Divide remaining space fairly
-      remainingCols.forEach(col => {
+      remainingCols.forEach((col) => {
         const max = getDesiredMax(col);
         const fairShare = remainingWidth / remainingCols.length;
         let width = 0;
@@ -108,7 +104,7 @@ export const Table: React.FC<ITable> = ({
         }
         updatedColWidth[col] = width;
         remainingWidth -= width;
-        remainingCols = remainingCols.filter(x => x !== col);
+        remainingCols = remainingCols.filter((x) => x !== col);
       });
 
       setColWidth(updatedColWidth); // Okay, NOW we can update
@@ -137,8 +133,8 @@ export const Table: React.FC<ITable> = ({
                   return colWidth[colIndex];
                 },
               },
-              cell.props.children,
-            ),
+              cell.props.children
+            )
           );
         });
         children[rowIndex] = cloneElement(row, {}, newCells);
@@ -155,9 +151,10 @@ export const Table: React.FC<ITable> = ({
       <ScrollView
         contentContainerStyle={{
           width: scrollViewWidth,
-          alignItems: 'flex-start',
+          alignItems: "flex-start",
         }}
-        style={{width: 0, height: 0}}>
+        style={{ width: 0, height: 0 }}
+      >
         <View onLayout={onLayoutChange}>{children}</View>
       </ScrollView>
     );
@@ -169,4 +166,4 @@ export const Table: React.FC<ITable> = ({
       <View onLayout={onLayoutChange}>{children}</View>
     </View>
   );
-};
+}

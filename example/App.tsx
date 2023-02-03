@@ -1,8 +1,6 @@
+import {Table, TR, TD} from '@mackenziehnc/table';
 import React from 'react';
 import {Text, View} from 'react-native';
-import {Table} from './Components/Table';
-import {TD} from './Components/TD';
-import {TR} from './Components/TR';
 
 const App = () => {
   const data = [
