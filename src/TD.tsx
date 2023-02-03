@@ -5,19 +5,13 @@ import { LayoutChangeEvent, View } from "react-native";
 export interface ITD {
   children?: any;
   requestWidth?: Function;
-  desiredWidthIsDefined?: Function;
   getWidth?: Function;
 }
 
 // Component
-export function TD({
-  children,
-  requestWidth,
-  desiredWidthIsDefined,
-  getWidth,
-}: ITD) {
+export function TD({ children, requestWidth, getWidth }: ITD) {
   const onLayout = (event: LayoutChangeEvent) => {
-    if (requestWidth && desiredWidthIsDefined && !desiredWidthIsDefined()) {
+    if (requestWidth) {
       requestWidth(Math.ceil(event.nativeEvent.layout.width));
     }
   };

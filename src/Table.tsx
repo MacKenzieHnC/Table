@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { cloneElement, useState } from "react";
+import React, { cloneElement, useRef, useState } from "react";
 import { LayoutChangeEvent, ScrollView, View, ViewStyle } from "react-native";
 import { ITR } from "./TR";
 
@@ -37,7 +37,7 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
   // State
   const [scrollViewWidth, setScrollViewWidth] = useState(1000);
   const [isMeasuring, setIsMeasuring] = useState(true);
-  const [desiredWidth, setDesiredWidth] = useState(
+  const desiredWidth = useRef(
     Array.from(Array(size[0]), () => new Array(size[1]))
   );
   const [colWidth, setColWidth] = useState(Array(size[1]));
@@ -50,14 +50,16 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
    */
   const getDesiredMax = (colIndex: number) => {
     return Math.max(
-      ...desiredWidth.map((desiredWidthRow) => desiredWidthRow[colIndex])
+      ...desiredWidth.current.map(
+        (desiredWidthRow) => desiredWidthRow[colIndex]
+      )
     );
   };
 
   const desiredWidthContainsUndefined = () => {
-    for (let row = 0; row < desiredWidth.length; row++) {
-      for (let col = 0; col < desiredWidth[row].length; col++) {
-        if (!desiredWidth[row][col]) {
+    for (let row = 0; row < desiredWidth.current.length; row++) {
+      for (let col = 0; col < desiredWidth.current[row].length; col++) {
+        if (!desiredWidth.current[row][col]) {
           return true;
         }
       }
@@ -122,12 +124,12 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
               cell,
               {
                 requestWidth: (width: number) => {
-                  let newArr = [...desiredWidth];
-                  newArr[rowIndex][colIndex] = width;
-                  setDesiredWidth(newArr);
-                },
-                desiredWidthIsDefined: () => {
-                  return desiredWidth[rowIndex][colIndex] !== undefined;
+                  if (desiredWidth.current[rowIndex][colIndex] === undefined) {
+                    desiredWidth.current[rowIndex][colIndex] = width;
+                    if (!desiredWidthContainsUndefined()) {
+                      setIsMeasuring(false);
+                    }
+                  }
                 },
                 getWidth: () => {
                   return colWidth[colIndex];
@@ -144,9 +146,6 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
 
   // While calculating measurements
   if (isMeasuring) {
-    if (!desiredWidthContainsUndefined()) {
-      setIsMeasuring(false);
-    }
     return (
       <ScrollView
         contentContainerStyle={{
