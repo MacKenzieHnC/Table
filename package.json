@@ -1,6 +1,6 @@
 {
   "name": "@mackenziehnc/table",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple html-like table library",
   "main": "./index.ts",
   "directories": {
@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/MacKenzieHnC/Table/issues"
   },
-  "homepage": "https://github.com/MacKenzieHnC/Table#readme", 
+  "homepage": "https://github.com/MacKenzieHnC/Table#readme",
   "exports": {
     ".": {
       "import": {
