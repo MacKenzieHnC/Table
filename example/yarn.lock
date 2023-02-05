@@ -1350,10 +1350,9 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@mackenziehnc/table@file:../mackenziehnc-table-0.0.1.tgz":
-  version "0.0.1"
-  resolved "file:../mackenziehnc-table-0.0.1.tgz"
-  integrity sha512-9J6MYF5/c9jluOKZOudYtyXzRM8HbwRtSRnzjMNmNgsJzP0RRuJfDPIhQVhkObxR7Fe1TRJl0yz9/XGRU4O+/w==
+"@mackenziehnc/table@file:../src":
+  version "0.0.3"
+  resolved "file:../src"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"

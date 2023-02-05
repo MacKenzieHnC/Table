@@ -7,9 +7,8 @@
  */
 
 "use strict";
+import { Table } from "./Table";
+import { TD } from "./TD";
+import { TR } from "./TR";
 
-import { Table } from "./src/Table";
-import { TD } from "./src/TD";
-import { TR } from "./src/TR";
-
-export { Table, TR, TD };
+export { Table, TD, TR };

@@ -6,11 +6,11 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
+    "test": "npm uninstall @mackenziehnc/table && npm install ../src && npm run android",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@mackenziehnc/table": "file:../mackenziehnc-table-0.0.1.tgz",
+    "@mackenziehnc/table": "file:../src",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-flex-grid": "^0.13.2"

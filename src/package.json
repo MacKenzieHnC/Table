@@ -23,6 +23,10 @@
     "url": "https://github.com/MacKenzieHnC/Table/issues"
   },
   "homepage": "https://github.com/MacKenzieHnC/Table#readme",
+  "peerDependencies": {
+    "react": "*", 
+    "react-native": "*"
+  },
   "exports": {
     ".": {
       "import": {
