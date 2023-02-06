@@ -11,11 +11,7 @@ npm install @mackenziehnc/table
 ## Usage
 
 ```js
-import { TableView } from "@mackenziehnc/table";
-
-// ...
-
-<TableView color="tomato" />
+// TODO
 ```
 
 ## Contributing
