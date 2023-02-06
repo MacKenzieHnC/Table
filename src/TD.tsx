@@ -1,5 +1,5 @@
-import React from "react";
-import { LayoutChangeEvent, View } from "react-native";
+import React from 'react';
+import { LayoutChangeEvent, View } from 'react-native';
 
 // Props
 export interface ITD {

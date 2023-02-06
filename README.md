@@ -1,48 +1,31 @@
-# Table
+# @mackenziehnc/table
 
-A basic html-like table component for React Native
+Table
 
-The core function that it serves is to shrink-wrap to cells, rather than use a `flex` style, the way that an html table would.
+## Installation
 
-___This is currently pre-alpha. There are known logical errors.___
-
-## Basic usage
-```js
-<Table>
-  <TR>
-    <TD>
-      // Some components
-    </TD>
-  </TR>
-</Table>
+```sh
+npm install @mackenziehnc/table
 ```
 
-## No-wrapping columns
-If you want some columns to automatically get as much space as they need, use the `priviledgedColumns` prop of `Table`.
-Example where the first and third columns no-wrap:
+## Usage
+
 ```js
-<Table priviledgedColumns={[0, 2]}>
-  ...
-</Table>
+import { TableView } from "@mackenziehnc/table";
+
+// ...
+
+<TableView color="tomato" />
 ```
 
-## Style
-`Table` accepts all [`ViewStyle` props](https://reactnative.dev/docs/view-style-props). `TR` and `TD` accept no props. But you are free to style the inner components of `TD` however you like.
+## Contributing
 
-Example:
-```js
-<Table
-        priviledgedColumns={[0]}
-        style={{
-          alignContent: 'center',
-          padding: 30,
-          backgroundColor: 'purple',
-          borderWidth: 5,
-        }}>
-...
-```
+See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
 
-## Limitations
-- All tables must contain at least 1 row.
-- All rows must contain at least 1 column.
-- All rows must contain the same number of columns.
+## License
+
+MIT
+
+---
+
+Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)

@@ -6,9 +6,9 @@
  * @flow
  */
 
-"use strict";
-import { Table } from "./Table";
-import { TD } from "./TD";
-import { TR } from "./TR";
+'use strict';
+import { Table } from './Table';
+import { TD } from './TD';
+import { TR } from './TR';
 
 export { Table, TD, TR };

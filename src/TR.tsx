@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { ITD } from "./TD";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import type { ITD } from './TD';
 
 // Props
 export interface ITR {
@@ -14,7 +14,7 @@ export function TR({ children }: ITR) {
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: "row",
-    flexWrap: "nowrap",
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
   },
 });

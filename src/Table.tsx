@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { cloneElement, useRef, useState } from "react";
-import { LayoutChangeEvent, ScrollView, View, ViewStyle } from "react-native";
-import { ITR } from "./TR";
+import React, { cloneElement, useRef, useState } from 'react';
+import { LayoutChangeEvent, ScrollView, View, ViewStyle } from 'react-native';
+import type { ITR } from './TR';
 
 /**
  * Table
@@ -23,12 +23,12 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
           size[1] = row.props.children.length;
         } else if (row.props.children.length !== size[1]) {
           throw Error(
-            "All rows in Table need to have the same number of columns!"
+            'All rows in Table need to have the same number of columns!'
           );
         }
       } else if (rowIndex !== 0 && size[1] !== 1) {
         throw Error(
-          "All rows in Table need to have the same number of columns!"
+          'All rows in Table need to have the same number of columns!'
         );
       }
     });
@@ -38,10 +38,10 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
   const [scrollViewWidth, setScrollViewWidth] = useState(1000);
   const [isMeasuring, setIsMeasuring] = useState(true);
   const desiredWidth = useRef(
-    Array.from(Array(size[0]), () => new Array(size[1]))
+    Array.from(Array(size[0]), () => new Array<number>(size[1] as number))
   );
   const [colWidth, setColWidth] = useState(Array(size[1]));
-  if (!desiredWidth || !colWidth) {
+  if (!desiredWidth || !desiredWidth.current || !colWidth) {
     return <View />;
   }
 
@@ -51,15 +51,22 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
   const getDesiredMax = (colIndex: number) => {
     return Math.max(
       ...desiredWidth.current.map(
-        (desiredWidthRow) => desiredWidthRow[colIndex]
+        (desiredWidthRow) => desiredWidthRow[colIndex] as number
       )
     );
   };
 
   const desiredWidthContainsUndefined = () => {
+    if (desiredWidth.current === undefined) {
+      return true;
+    }
     for (let row = 0; row < desiredWidth.current.length; row++) {
-      for (let col = 0; col < desiredWidth.current[row].length; col++) {
-        if (!desiredWidth.current[row][col]) {
+      for (
+        let col = 0;
+        col < (desiredWidth.current[row] as number[]).length;
+        col++
+      ) {
+        if ((desiredWidth.current[row] as number[])[col] === undefined) {
           return true;
         }
       }
@@ -80,8 +87,8 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
       let updatedColWidth = [...colWidth]; // This will store our calculations, so we don't get race conditions
       let remainingWidth = event.nativeEvent.layout.width;
       let remainingCols = Array.from(
-        Array<number[]>(size[1]),
-        (cell, index) => {
+        Array<number[]>(size[1] as number),
+        (_cell, index) => {
           return index;
         }
       );
@@ -124,8 +131,12 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
               cell,
               {
                 requestWidth: (width: number) => {
-                  if (desiredWidth.current[rowIndex][colIndex] === undefined) {
-                    desiredWidth.current[rowIndex][colIndex] = width;
+                  if (
+                    (desiredWidth.current[rowIndex] as number[])[colIndex] ===
+                    undefined
+                  ) {
+                    (desiredWidth.current[rowIndex] as number[])[colIndex] =
+                      width;
                     if (!desiredWidthContainsUndefined()) {
                       setIsMeasuring(false);
                     }
@@ -150,7 +161,7 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
       <ScrollView
         contentContainerStyle={{
           width: scrollViewWidth,
-          alignItems: "flex-start",
+          alignItems: 'flex-start',
         }}
         style={{ width: 0, height: 0 }}
       >
