@@ -6,20 +6,26 @@ export interface ITD {
   children?: any;
   requestWidth?: Function;
   getWidth?: Function;
+  restrained?: boolean;
 }
 
 // Component
-export function TD({ children, requestWidth, getWidth }: ITD) {
+export function TD({
+  children,
+  requestWidth,
+  getWidth,
+  restrained = false,
+}: ITD) {
   const onLayout = (event: LayoutChangeEvent) => {
-    if (requestWidth) {
+    if (requestWidth && !restrained) {
       requestWidth(Math.ceil(event.nativeEvent.layout.width));
     }
   };
-  if (!getWidth) {
-    return <View />;
-  }
   return (
-    <View onLayout={onLayout} style={{ width: getWidth() }}>
+    <View
+      onLayout={onLayout}
+      style={getWidth && restrained ? { width: getWidth() } : {}}
+    >
       {children}
     </View>
   );

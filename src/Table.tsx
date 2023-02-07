@@ -41,6 +41,11 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
     Array.from(Array(size[0]), () => new Array<number>(size[1] as number))
   );
   const [colWidth, setColWidth] = useState(Array(size[1]));
+  const unrestrainedChildren = useRef(
+    Array.isArray(children)
+      ? Array(children.length)
+      : cloneElement(children, {})
+  );
   if (!desiredWidth || !desiredWidth.current || !colWidth) {
     return <View />;
   }
@@ -122,26 +127,17 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
 
   // Add necessary functions to cells
   if (Array.isArray(children)) {
+    let newUnrestrainedChildren = Array(children.length);
     (children as React.ReactElement<ITR>[]).forEach((row, rowIndex) => {
       if (Array.isArray(row.props.children)) {
         let newCells: React.ReactElement[] = [];
+        let unrestrainedCells: React.ReactElement[] = [];
         row.props.children.forEach((cell, colIndex) => {
           newCells.push(
             cloneElement(
               cell,
               {
-                requestWidth: (width: number) => {
-                  if (
-                    (desiredWidth.current[rowIndex] as number[])[colIndex] ===
-                    undefined
-                  ) {
-                    (desiredWidth.current[rowIndex] as number[])[colIndex] =
-                      width;
-                    if (!desiredWidthContainsUndefined()) {
-                      setIsMeasuring(false);
-                    }
-                  }
-                },
+                restrained: true,
                 getWidth: () => {
                   return colWidth[colIndex];
                 },
@@ -149,15 +145,37 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
               cell.props.children
             )
           );
+          unrestrainedCells.push(
+            cloneElement(
+              cell,
+              {
+                restrained: false,
+                requestWidth: (width: number) => {
+                  (desiredWidth.current[rowIndex] as number[])[colIndex] =
+                    width;
+                  if (!desiredWidthContainsUndefined()) {
+                    setIsMeasuring(false);
+                  }
+                },
+              },
+              cell.props.children
+            )
+          );
         });
         children[rowIndex] = cloneElement(row, {}, newCells);
+        newUnrestrainedChildren[rowIndex] = cloneElement(
+          row,
+          {},
+          unrestrainedCells
+        );
       }
     });
+    unrestrainedChildren.current = newUnrestrainedChildren;
   }
 
   // While calculating measurements
-  if (isMeasuring) {
-    return (
+  return (
+    <View>
       <ScrollView
         contentContainerStyle={{
           width: scrollViewWidth,
@@ -165,15 +183,13 @@ export function Table({ children, style, priviledgedColumns = [] }: ITable) {
         }}
         style={{ width: 0, height: 0 }}
       >
-        <View onLayout={onLayoutChange}>{children}</View>
+        <View onLayout={onLayoutChange}>{unrestrainedChildren.current}</View>
       </ScrollView>
-    );
-  }
-
-  // Okay, now we can actually display it
-  return (
-    <View style={style}>
-      <View onLayout={onLayoutChange}>{children}</View>
+      {!desiredWidthContainsUndefined() && (
+        <View style={style}>
+          <View onLayout={onLayoutChange}>{children}</View>
+        </View>
+      )}
     </View>
   );
 }
