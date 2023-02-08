@@ -25,7 +25,7 @@ const App = () => {
   return (
     <View style={{ alignContent: 'center' }}>
       <Button title="increment" onPress={() => setSomeValue(someValue + 1)} />
-      <Table priviledgedColumns={[0]}>
+      <Table>
         {data.map((item, index) => (
           <TR key={index}>
             <TD key={'name'}>

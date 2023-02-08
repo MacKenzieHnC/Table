@@ -1,6 +1,6 @@
 {
   "name": "@mackenziehnc/table",
-  "version": "0.0.3",
+  "version": "0.0.5",
  "description": "A simple html-like table library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -45,7 +45,7 @@
     "type": "git",
     "url": "git+https://github.com/MacKenzieHnC/Table.git"
   },
-  "author": "MacKenzie H&C",
+  "author": "MacKenzie H&C <mackenziehnc@gmail.com> (https://github.com/MacKenzieHnC)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MacKenzieHnC/Table/issues"
