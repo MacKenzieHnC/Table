@@ -1,72 +1,43 @@
 package com.mackenziehnc.table;
 
-import android.view.Choreographer;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.GridLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 
-import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.common.MapBuilder;
-import com.facebook.react.uimanager.annotations.ReactProp;
-import com.facebook.react.uimanager.annotations.ReactPropGroup;
-import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.ViewGroupManager;
+import com.facebook.react.uimanager.annotations.ReactProp;
 
-import java.util.Map;
-
-public class TableViewManager extends ViewGroupManager<FrameLayout> {
+public class TableViewManager extends ViewGroupManager<GridLayout> {
 
   public static final String REACT_CLASS = "TableViewManager";
-  public final int COMMAND_CREATE = 1;
-  private int propWidth;
-  private int propHeight;
 
-  ReactApplicationContext reactContext;
-
-  public TableViewManager(ReactApplicationContext reactContext) {
-    this.reactContext = reactContext;
-  }
-
+  @NonNull
   @Override
   public String getName() {
     return REACT_CLASS;
   }
 
-  /**
-   * Return a FrameLayout which will later hold the Fragment
-   */
+  @NonNull
   @Override
-  public FrameLayout createViewInstance(ThemedReactContext reactContext) {
-    return new FrameLayout(reactContext);
+  public GridLayout createViewInstance(@NonNull ThemedReactContext reactContext) {
+    GridLayout gridLayout = new GridLayout(reactContext);
+    GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+    params.setGravity(Gravity.FILL_HORIZONTAL);
+    gridLayout.setLayoutParams(params);
+    gridLayout.setAlignmentMode(GridLayout.ALIGN_BOUNDS);
+    Log.d("Debug", "Layout column count: " + gridLayout.getColumnCount());
+    return gridLayout;
   }
 
-  public void setupLayout(View view) {
-    Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
-      @Override
-      public void doFrame(long frameTimeNanos) {
-        manuallyLayoutChildren(view);
-        view.getViewTreeObserver().dispatchOnGlobalLayout();
-        Choreographer.getInstance().postFrameCallback(this);
-      }
-    });
+
+  @ReactProp(name = "columnCount")
+  public void setPosition(GridLayout view, int columnCount) {
+    view.setColumnCount(columnCount);
   }
 
-  /**
-   * Layout all children properly
-   */
-  public void manuallyLayoutChildren(View view) {
-      // propWidth and propHeight coming from react-native props
-      int width = propWidth;
-      int height = propHeight;
-
-      view.measure(
-              View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-              View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
-
-      view.layout(0, 0, width, height);
-  }
 }
