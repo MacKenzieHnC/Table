@@ -8,5 +8,5 @@ export interface ITD {
 
 // Component
 export function TD({ children }: ITD) {
-  return <View>{children}</View>;
+  return <View style={{ flexShrink: 1 }}>{children}</View>;
 }

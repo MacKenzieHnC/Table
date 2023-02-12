@@ -18,7 +18,6 @@ public class TableViewPackage implements ReactPackage {
    public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
     List<ViewManager> viewManagers = new ArrayList<>();
     viewManagers.add(new TableViewManager());
-    viewManagers.add(new CellViewManager());
     return viewManagers;
    }
 
