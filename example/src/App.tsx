@@ -1,25 +1,22 @@
 import * as React from 'react';
 
-import { StyleSheet, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { TableView } from '@mackenziehnc/table';
 
 export default function App() {
+  const data = ['Cell 1', 'Cell 2', 'Cell 3', 'Cell 4', 'Cell 5', 'Cell 6'];
   return (
-    <View style={styles.container}>
-      <TableView color="#32a852" style={styles.box} />
+    <View style={{ width: 200, borderWidth: 3, borderColor: 'red' }}>
+      <TableView>
+        {data.map((child, index) => (
+          <View
+            key={index}
+            style={{ borderWidth: 1, flexShrink: 1, flexDirection: 'row' }}
+          >
+            <Text style={{ flexShrink: 1, borderWidth: 1 }}>{child}</Text>
+          </View>
+        ))}
+      </TableView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});

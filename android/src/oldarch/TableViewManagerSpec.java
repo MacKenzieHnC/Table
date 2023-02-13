@@ -1,12 +1,10 @@
 package com.mackenziehnc.table;
 
-import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.uimanager.SimpleViewManager;
+import com.facebook.react.uimanager.ViewGroupManager;
 
-public abstract class TableViewManagerSpec<T extends View> extends SimpleViewManager<T> {
-  public abstract void setColor(T view, @Nullable String value);
+public abstract class TableViewManagerSpec<T extends ViewGroup> extends ViewGroupManager<T> {
 }

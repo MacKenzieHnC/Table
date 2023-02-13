@@ -1,24 +1,22 @@
 package com.mackenziehnc.table;
 
-import androidx.annotation.Nullable;
-
 import android.content.Context;
-import android.util.AttributeSet;
-
 import android.view.View;
+import android.widget.GridLayout;
 
-public class TableView extends View {
+public class TableView extends GridLayout {
 
   public TableView(Context context) {
     super(context);
+    this.setColumnCount(2);
   }
 
-  public TableView(Context context, @Nullable AttributeSet attrs) {
-    super(context, attrs);
+  @Override
+  public void addView(View child, int index) {
+    GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+    params.rowSpec = GridLayout.spec(index / getColumnCount());
+    params.columnSpec = GridLayout.spec(index % getColumnCount());
+    child.setLayoutParams(params);
+    super.addView(child, index);
   }
-
-  public TableView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-    super(context, attrs, defStyleAttr);
-  }
-
 }
