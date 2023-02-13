@@ -1,33 +1,31 @@
 package com.mackenziehnc.table;
 
-import android.widget.GridLayout;
+import android.graphics.Color;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
-public class TableViewManager extends ViewGroupManager<TableView> {
+@ReactModule(name = TableViewManager.NAME)
+public class TableViewManager extends TableViewManagerSpec<TableView> {
 
-  public static final String REACT_CLASS = "TableViewManager";
+  public static final String NAME = "TableView";
 
-  @NonNull
   @Override
   public String getName() {
-    return REACT_CLASS;
+    return NAME;
   }
 
-  @NonNull
   @Override
-  public TableView createViewInstance(@NonNull ThemedReactContext reactContext) {
-    return new TableView(reactContext);
+  public TableView createViewInstance(ThemedReactContext context) {
+    return new TableView(context);
   }
 
-
-  @ReactProp(name = "columnCount")
-  public void setPosition(GridLayout view, int columnCount) {
-    view.setColumnCount(columnCount);
+  @Override
+  @ReactProp(name = "color")
+  public void setColor(TableView view, @Nullable String color) {
+    view.setBackgroundColor(Color.parseColor(color));
   }
-
 }

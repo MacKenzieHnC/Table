@@ -1,35 +1,24 @@
 package com.mackenziehnc.table;
-import android.content.Context;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.GridLayout;
 
-public class TableView extends GridLayout {
+import androidx.annotation.Nullable;
+
+import android.content.Context;
+import android.util.AttributeSet;
+
+import android.view.View;
+
+public class TableView extends View {
 
   public TableView(Context context) {
     super(context);
   }
 
-  private void refreshViewChildrenLayout(){
-    measure(
-      View.MeasureSpec.makeMeasureSpec(getMeasuredWidth(), View.MeasureSpec.EXACTLY),
-      View.MeasureSpec.makeMeasureSpec(getMeasuredHeight(), View.MeasureSpec.EXACTLY));
-    layout(getLeft(), getTop(), getRight(), getBottom());
+  public TableView(Context context, @Nullable AttributeSet attrs) {
+    super(context, attrs);
   }
 
-  @Override
-  public void addView(View child, int index) {
-    int row = index / getColumnCount();
-    int col = index % getColumnCount();
-
-    GridLayout.LayoutParams params = new GridLayout.LayoutParams(
-      GridLayout.spec(row),
-      GridLayout.spec(col)
-    );
-    super.addView(child, index, params);
-    refreshViewChildrenLayout();
-    Log.d("Debug", index + ": [" + row + ", " + col + "]");
-
+  public TableView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
   }
+
 }

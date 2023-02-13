@@ -1,6 +1,6 @@
 # @mackenziehnc/table
 
-Table
+asdf
 
 ## Installation
 
@@ -11,7 +11,11 @@ npm install @mackenziehnc/table
 ## Usage
 
 ```js
-// TODO
+import { TableView } from "@mackenziehnc/table";
+
+// ...
+
+<TableView color="tomato" />
 ```
 
 ## Contributing

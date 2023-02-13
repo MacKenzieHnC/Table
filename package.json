@@ -1,6 +1,6 @@
 {
   "name": "@mackenziehnc/table",
-  "version": "0.0.5",
+  "version": "0.1.0",
  "description": "A simple html-like table library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -144,7 +144,8 @@
     "singleQuote": true,
     "tabWidth": 2,
     "trailingComma": "es5",
-    "useTabs": false
+    "useTabs": false,
+    "endOfLine": "auto"
   },
   "react-native-builder-bob": {
     "source": "src",

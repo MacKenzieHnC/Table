@@ -1,8 +1,8 @@
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import type { ViewProps } from 'react-native';
 
-export interface TableViewProps extends ViewProps {
-  columnCount?: number;
+interface NativeProps extends ViewProps {
+  color?: string;
 }
 
-export default codegenNativeComponent<TableViewProps>('TableViewManager');
+export default codegenNativeComponent<NativeProps>('TableView');
