@@ -1,7 +1,7 @@
 {
   "name": "@mackenziehnc/table",
   "version": "0.1.0",
- "description": "A simple html-like table library",
+  "description": "A simple html-like table library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -34,7 +34,8 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn install && yarn example pods",
-    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build"
+    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build",
+    "windows": "react-native run-windows"
   },
   "keywords": [
     "react-native",
@@ -55,8 +56,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@evilmartians/lefthook": "^1.2.2",
     "@commitlint/config-conventional": "^17.0.2",
+    "@evilmartians/lefthook": "^1.2.2",
     "@react-native-community/eslint-config": "^3.0.2",
     "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^28.1.2",
@@ -73,8 +74,10 @@
     "react": "18.2.0",
     "react-native": "0.71.2",
     "react-native-builder-bob": "^0.20.0",
+    "react-native-windows": "0.71.1",
     "release-it": "^15.0.0",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "metro-config": "^0.73.7"
   },
   "resolutions": {
     "@types/react": "17.0.21"
